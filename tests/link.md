@@ -1,0 +1,2 @@
+[LinkText](/destination "Title")
+[BadLink

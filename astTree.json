@@ -1,0 +1,58 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "link",
+      "children": [
+        {
+          "type": "link-text",
+          "children": [
+            {
+              "value": "LinkText",
+              "type": "text",
+              "parentType": "link-text"
+            }
+          ],
+          "parentType": "link"
+        },
+        {
+          "type": "link-details",
+          "children": [
+            {
+              "value": "/destination ",
+              "type": "link-destination",
+              "parentType": "link-details"
+            },
+            {
+              "type": "link-title",
+              "children": [
+                {
+                  "value": "Title",
+                  "type": "text",
+                  "parentType": "link-title"
+                }
+              ],
+              "parentType": "link-details"
+            }
+          ],
+          "parentType": "link"
+        }
+      ],
+      "parentType": "root",
+      "value": "LinkText",
+      "url": "/destination ",
+      "title": "Title"
+    },
+    {
+      "type": "Paragraph",
+      "children": [
+        {
+          "value": "[BadLink",
+          "type": "text",
+          "parentType": "Paragraph"
+        }
+      ],
+      "parentType": "root"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@confused-techie/piemark",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "piemark": "bin/index.js"
+  },
+  "main": "bin/index.js",
+  "author": "confused-techie",
+  "license": "GPL-3.0"
+}
