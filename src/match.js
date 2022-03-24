@@ -1,6 +1,7 @@
 const charMatch = {
   '\n'(stack, reader) {
     stack.PopNode();
+    stack.addNode({ type: 'line-break' });
     reader.next();
   },
   '\r'(stack, reader) {
@@ -72,7 +73,7 @@ const charMatch = {
           stack.ClimbNode();
           reader.next();
         } else {
-          stack.addNode({ value: '_', type: 'text' });
+          stack.addNode({ value: originalString, type: 'text' });
           reader.next();
         }
         break;
@@ -85,7 +86,7 @@ const charMatch = {
           stack.ClimbNode();
           reader.next();
         } else {
-          stack.addNode({ value: '_', type: 'text' });
+          stack.addNode({ value: originalString, type: 'text' });
           reader.next();
         }
         break;
@@ -111,10 +112,14 @@ const charMatch = {
     reader.next();
   },
   '['(stack, reader) {
-    if (reader.hasChar(']', [ '\n', '[' ]) && reader.hasChar('(', [ '\n' ]) && reader.hasChar(')', [ '\n' ])) {
+    if (reader.hasChar(']', [ '\n', '[' ]) && reader.hasChar('(', [ '\n' ]) && reader.hasChar(')', [ '\n' ]) && stack.getParentType !== 'image') {
       stack.addNode({ type: 'link', children: [] });
       stack.DescendNode();
       stack.addNode({ type: 'link-text', children: [] });
+      stack.DescendNode();
+      reader.next();
+    } else if (stack.getParentType == 'image') {
+      stack.addNode({ type: 'image-alt', children: [] });
       stack.DescendNode();
       reader.next();
     } else {
@@ -124,6 +129,9 @@ const charMatch = {
   },
   ']'(stack, reader) {
     if (stack.getParentType == 'link-text') {
+      stack.ClimbNode();
+      reader.next();
+    } else if (stack.getParentType == 'image-alt') {
       stack.ClimbNode();
       reader.next();
     } else {
@@ -137,6 +145,10 @@ const charMatch = {
       stack.addNode({ type: 'link-details', children: [] });
       stack.DescendNode();
       reader.next();
+    } else if (stack.getParentType == 'image') {
+      stack.addNode({ type: 'image-details', children: [] });
+      stack.DescendNode();
+      reader.next();
     } else {
       stack.addNode({ value: '(', type: 'text' });
       reader.next();
@@ -144,6 +156,9 @@ const charMatch = {
   },
   ')'(stack, reader) {
     if (stack.getParentType == 'link-details') {
+      stack.ClimbNode();
+      reader.next();
+    } else if (stack.getParentType == 'image-details') {
       stack.ClimbNode();
       reader.next();
     } else {
@@ -154,6 +169,9 @@ const charMatch = {
   '/'(stack, reader) {
     if (stack.getParentType == 'link-details') {
       stack.addNode({ value: '/', type: 'link-destination' });
+      reader.next();
+    } else if (stack.getParentType == 'image-details') {
+      stack.addNode({ value: '/', type: 'image-destination' });
       reader.next();
     } else {
       stack.addNode({ value: '/', type: 'text' });
@@ -168,10 +186,35 @@ const charMatch = {
     } else if (stack.getParentType == 'link-title') {
       stack.ClimbNode();
       reader.next();
+    } else if (stack.getParentType == 'image-details') {
+      stack.addNode({ type: 'image-title', children: [] });
+      stack.DescendNode();
+      reader.next();
+    } else if (stack.getParentType == 'image-title') {
+      stack.ClimbNode();
+      reader.next();
     } else {
       stack.addNode({ value: '"', type: 'text' });
       reader.next();
     }
+  },
+  "!"(stack, reader) {
+    if (reader.hasChar('[', [ '\n' ]) && reader.hasChar(']', [ '\n' ]) && reader.hasChar('(', [ '\n' ]) && reader.hasChar(')', [ '\n' ]) && reader.hasChar('"', [ '\n' ])) {
+      stack.addNode({ type: 'image', children: [] });
+      stack.DescendNode();
+      reader.next();
+    } else {
+      stack.addNode({ value: '!', type: 'text' });
+      reader.next();
+    }
+  },
+  "+"(stack, reader) {
+    stack.addNode({ value: "+", type: 'text' });
+    reader.next();
+  },
+  "="(stack, reader) {
+    stack.addNode({ value: '=', type: 'text' });
+    reader.next();
   },
 };
 

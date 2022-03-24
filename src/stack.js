@@ -71,6 +71,15 @@ class Stack {
           } else if (passedStack.children[i].type == 'text' && passedStack.type == 'link-title' && passedStack.parentNode.parentNode.type == 'link') {
             passedStack.parentNode.parentNode.title = passedStack.children[i].value;
             this.flattenStack(passedStack.children[i]);
+          } else if (passedStack.children[i].type == 'text' && passedStack.type == 'image-alt' && passedStack.parentNode.type == 'image') {
+            passedStack.parentNode.alt = passedStack.children[i].value;
+            this.flattenStack(passedStack.children[i]);
+          } else if (passedStack.children[i].type == 'text' && passedStack.type == 'image-title' && passedStack.parentNode.parentNode.type == 'image') {
+            passedStack.parentNode.parentNode.title = passedStack.children[i].value;
+            this.flattenStack(passedStack.children[i]);
+          } else if (passedStack.children[i].type == 'image-destination' && passedStack.type == 'image-details' && passedStack.parentNode.type == 'image') {
+            passedStack.parentNode.url = passedStack.children[i].value;
+            this.flattenStack(passedStack.children[i]);
           } else {
             this.flattenStack(passedStack.children[i]);
           }

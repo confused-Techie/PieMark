@@ -33,7 +33,11 @@ async function inspectNode(matchNode, astNode, doc, parentNode) {
     case 'obj':
       doc.add(matchNode.value);
       break;
+    case 'raw':
+      doc.add(matchNode.value);
+      break;
     case 'standalone-tag':
+      // really the parser has been improved to where this is no longer needed. Keeping it just in case.
       // since theres no way to tell if this intended as the opening or closing tag we check that first.
       if (doc.checkQueue(matchNode.close)) {
         // the value is in the queue, this is likely the closing tag.
@@ -89,7 +93,13 @@ function matchNode(node) {
       return { type: 'value', value: "<hr />" };
       break;
     case 'link':
-      return { type: 'obj', value: `<a href="${node.url.trim()}" title="${node.title}">${node.value}</a>` };
+      return { type: 'obj', value: `<p><a href=${typeof node.url !== 'undefined' ? `"${node.url.trim()}"` : `""`}${typeof node.title !== 'undefined' ? `title="${node.title}"` : '' }>${node.value}</a></p>` };
+      break;
+    case 'image':
+      return { type: 'obj', value: `<img src="${node.url.trim()}" alt="${node.alt}" title="${node.title}" />` };
+      break;
+    case 'line-break':
+      return { type: 'raw', value: '\n' };
       break;
     default:
       console.log(`Not Understood: ${node}`);

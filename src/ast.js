@@ -15,6 +15,10 @@ function parse(source) {
           stack.addNode({ value: reader.char, type: 'link-destination' });
           reader.next();
           break;
+        case 'image-destination':
+          stack.addNode({ value: reader.char, type: 'image-destination' });
+          reader.next();
+          break;
         default:
           stack.addNode({ value: reader.char, type: 'text' });
           reader.next();

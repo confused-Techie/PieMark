@@ -2,53 +2,103 @@
   "type": "root",
   "children": [
     {
-      "type": "link",
+      "type": "Paragraph",
       "children": [
         {
-          "type": "link-text",
-          "children": [
-            {
-              "value": "LinkText",
-              "type": "text",
-              "parentType": "link-text"
-            }
-          ],
-          "parentType": "link"
-        },
-        {
-          "type": "link-details",
-          "children": [
-            {
-              "value": "/destination ",
-              "type": "link-destination",
-              "parentType": "link-details"
-            },
-            {
-              "type": "link-title",
-              "children": [
-                {
-                  "value": "Title",
-                  "type": "text",
-                  "parentType": "link-title"
-                }
-              ],
-              "parentType": "link-details"
-            }
-          ],
-          "parentType": "link"
+          "value": "Some random Text first.",
+          "type": "text",
+          "parentType": "Paragraph"
         }
       ],
-      "parentType": "root",
-      "value": "LinkText",
-      "url": "/destination ",
-      "title": "Title"
+      "parentType": "root"
+    },
+    {
+      "type": "Header",
+      "children": [
+        {
+          "value": " First Header",
+          "type": "text",
+          "parentType": "Header"
+        }
+      ],
+      "depth": 1,
+      "parentType": "root"
     },
     {
       "type": "Paragraph",
       "children": [
         {
-          "value": "[BadLink",
+          "value": "   ",
           "type": "text",
+          "parentType": "Paragraph"
+        },
+        {
+          "type": "Header",
+          "children": [
+            {
+              "value": " Tabbed Header",
+              "type": "text",
+              "parentType": "Header"
+            }
+          ],
+          "depth": 1,
+          "parentType": "Paragraph"
+        }
+      ],
+      "parentType": "root"
+    },
+    {
+      "type": "Header",
+      "children": [
+        {
+          "value": " 2 Header",
+          "type": "text",
+          "parentType": "Header"
+        }
+      ],
+      "depth": 2,
+      "parentType": "root"
+    },
+    {
+      "type": "Paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "#hashtag",
+          "parentType": "Paragraph"
+        }
+      ],
+      "parentType": "root"
+    },
+    {
+      "type": "Paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "######SixHashes",
+          "parentType": "Paragraph"
+        }
+      ],
+      "parentType": "root"
+    },
+    {
+      "type": "Header",
+      "children": [
+        {
+          "value": " SixHeader",
+          "type": "text",
+          "parentType": "Header"
+        }
+      ],
+      "depth": 6,
+      "parentType": "root"
+    },
+    {
+      "type": "Paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "####### 7Hashes",
           "parentType": "Paragraph"
         }
       ],

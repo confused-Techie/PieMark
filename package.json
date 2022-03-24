@@ -5,7 +5,12 @@
   "bin": {
     "piemark": "bin/index.js"
   },
+  "scripts": {
+    "test": "node ./src/ast_test.js",
+    "create-test": "node ./createtest.js"
+  },
   "main": "bin/index.js",
   "author": "confused-techie",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "devDependencies": {}
 }
